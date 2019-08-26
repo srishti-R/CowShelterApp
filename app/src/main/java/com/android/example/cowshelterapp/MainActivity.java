@@ -1,17 +1,10 @@
 package com.android.example.cowshelterapp;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.ShapeDrawable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -49,11 +42,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        RecyclerView recyclerView=findViewById(R.id.recycler_view);
-        GridLayoutManager gridLayoutManager=new GridLayoutManager(this, 2);
-        gridLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
 
-        recyclerView.setLayoutManager(gridLayoutManager);
        /* Button v=(Button)findViewById(R.id.button);
         v.setOnClickListener(new View.OnClickListener() {
             @Override

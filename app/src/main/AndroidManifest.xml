@@ -16,6 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".RowOne"></activity>
+        <activity android:name=".RowTwo"></activity>
+        <activity android:name=".RowThree" />
     </application>
 
 </manifest>

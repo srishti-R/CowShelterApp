@@ -13,9 +13,45 @@
         android:id="@+id/exclamation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@id/image"
+        android:layout_alignStart="@+id/image"
 
-        android:layout_alignTop="@id/image"
+        android:layout_alignLeft="@+id/image"
+        android:layout_alignTop="@+id/image"
+        android:layout_alignEnd="@+id/image"
+        android:layout_alignRight="@+id/image"
+        android:layout_alignBottom="@+id/image"
+        android:layout_marginStart="42dp"
+        android:layout_marginLeft="38dp"
 
-        android:src="@drawable/ic_exclamation" />
+        android:layout_marginTop="38dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginRight="38dp"
+        android:layout_marginBottom="38dp"
+        android:background="@drawable/ic_exclamation"
+        android:scaleType="fitXY" />
+
+    <ImageView
+        android:id="@+id/smily"
+        android:layout_width="134dp"
+        android:layout_height="134dp"
+        android:layout_alignStart="@+id/image"
+        android:layout_alignLeft="@+id/image"
+        android:layout_alignTop="@+id/image"
+        android:layout_alignEnd="@+id/image"
+
+        android:layout_alignRight="@+id/image"
+        android:layout_alignBottom="@+id/image"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="34dp"
+        android:layout_marginLeft="34dp"
+
+        android:layout_marginTop="33dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="33dp"
+        android:background="@drawable/ic_mood"
+        android:scaleType="centerInside"
+        android:visibility="gone" />
 
 </RelativeLayout>
