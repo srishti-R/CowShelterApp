@@ -16,8 +16,8 @@ public class RowOne extends AppCompatActivity {
         setContentView(R.layout.recycler_view);
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
-        gridLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
+        gridLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         CustomCowAdapter adapter = new CustomCowAdapter();
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(gridLayoutManager);
