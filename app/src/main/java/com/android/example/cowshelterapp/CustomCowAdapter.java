@@ -12,8 +12,7 @@ import android.widget.ImageView;
 public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowViewHolder> {
 
     int countOfClicks = 0;
-    OnClickHandler mClickHandler;
-    RecyclerView recyclerView;
+
 
     @NonNull
     @Override
@@ -21,21 +20,18 @@ public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowV
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recycler_view_item, viewGroup, false);
         CowViewHolder ch = new CowViewHolder(v);
 
+
         return ch;
     }
 
-
-    public interface OnClickHandler {
-        void onChildClick(View v, int color);
-    }
 
 
     @Override
     public void onBindViewHolder(@NonNull final CowViewHolder cowViewHolder, int i) {
 
 
-
         final GradientDrawable gd = (GradientDrawable) cowViewHolder.image.getDrawable().getCurrent();
+        final int[] array = (int[]) cowViewHolder.image.getTag();
         final ImageView exclamation = cowViewHolder.exclamation;
         final ImageView smily = cowViewHolder.smily;
 
@@ -44,29 +40,29 @@ public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowV
             @Override
             public void onClick(View v) {
                 countOfClicks++;
+                notifyDataSetChanged();
                 switch (countOfClicks) {
                     case 1:
 
-                        gd.setColor(ColorUtils.colorsArray[cowViewHolder.getAdapterPosition()][countOfClicks]);
+                        gd.setColor(array[0]);
 
                         break;
                     case 2:
 
-                        gd.setColor(ColorUtils.colorsArray[cowViewHolder.getAdapterPosition()][countOfClicks]);
+                        gd.setColor(array[1]);
 
                         break;
                     case 3:
-                        gd.setColor(ColorUtils.colorsArray[cowViewHolder.getAdapterPosition()][countOfClicks]);
+                        gd.setColor(array[2]);
 
 
                         break;
 
                     default:
 
-                        gd.setColor(ColorUtils.colorsArray[cowViewHolder.getAdapterPosition()][countOfClicks]);
+                        gd.setColor(array[3]);
                         exclamation.setVisibility(View.GONE);
                         smily.setVisibility(View.VISIBLE);
-
 
 
                 }
@@ -81,7 +77,7 @@ public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowV
         return 2;
     }
 
-    public class CowViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, OnClickHandler {
+    public class CowViewHolder extends RecyclerView.ViewHolder {
         public ImageView image;
         public ImageView exclamation;
         public ImageView smily;
@@ -89,36 +85,17 @@ public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowV
         public CowViewHolder(@NonNull View itemView) {
             super(itemView);
             this.image = itemView.findViewById(R.id.image);
+
+            image.setTag(ColorUtils.colorsArray[getAdapterPosition() + 1]);
             this.exclamation = itemView.findViewById(R.id.exclamation);
             this.smily = itemView.findViewById(R.id.smily);
-            itemView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View v) {
-            int position = getAdapterPosition();
-            int color = ColorUtils.colorsArray[position][countOfClicks];
-            onChildClick(v, color);
-        }
-
-
-        public void onChildClick(View v, int color) {
-            setColorToChild(v, color);
-        }
-    }
-
-
-    public View setColorToChild(View v, int color) {
-
-        int number = getItemCount();
-
-        for (int i = 0; i < number; i++) {
-            View m = recyclerView.getChildAt(i);
-            v.ge
-            v.setBackgroundColor(color);
-
 
         }
-        return v;
     }
 }
+
+
+
+
+
+

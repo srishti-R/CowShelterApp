@@ -1,8 +1,9 @@
 package com.android.example.cowshelterapp;
 
-public interface ColorUtils {
+public class ColorUtils {
 
-    int[][] colorsArray = new int[][]{
+
+    static int[][] colorsArray = new int[][]{
             new int[]{R.color.red1, R.color.red2, R.color.red3, R.color.red4},
             new int[]{R.color.blue1, R.color.blue2, R.color.blue3, R.color.blue4},
             new int[]{R.color.green1, R.color.green2, R.color.green3, R.color.green4},
@@ -12,5 +13,23 @@ public interface ColorUtils {
             new int[]{R.color.grey1, R.color.grey2, R.color.grey3, R.color.grey4}
     };
 
+    /*List<List<int[]>> colors=new ArrayList<List<int[]>>();
+
+    public List convertArrayToList(Integer[][] colorsArray){
+        for (Integer[] array: colorsArray) {
+            //This will add int[] object into the list, and not the int values.
+            colors.add(Arrays.asList(array));
+        }
+    }
+
+    int iLength = colorsArray.length;
+    List<List<Integer>> listOfLists = new ArrayList<>(iLength);
+    for (int i = 0; i < iLength; i++) {
+        int jLength = colorsArray[0].length;
+        listOfLists.add(new ArrayList(jLength));
+        for (int j = 0; j < jLength; ++j) {
+            listOfLists.get(i).add(colorsArray[i][j]);
+        }
+    }*/
 
 }
