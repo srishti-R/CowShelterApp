@@ -1,5 +1,7 @@
 package com.android.example.cowshelterapp;
 
+import java.util.HashMap;
+
 public class ColorUtils {
 
 
