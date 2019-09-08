@@ -3,19 +3,21 @@ package com.android.example.cowshelterapp;
 import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import java.util.HashMap;
-import java.util.Map;
+
+import static com.android.example.cowshelterapp.ColorUtils.colorsArray;
 
 public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowViewHolder> {
     ColorUtils colorUtils = new ColorUtils();
     int countOfClicks = 0;
 
-    Map<Integer, Integer> clicksMap = new HashMap<>();
+
 
 
     @NonNull
@@ -35,6 +37,10 @@ public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowV
 
 
         final GradientDrawable gd = (GradientDrawable) cowViewHolder.image.getDrawable().getCurrent();
+        final HashMap<Integer, CowViewHolder> maps = new HashMap<>();
+        synchronized (maps) {
+            maps.put(i, cowViewHolder);
+        }
         //cowViewHolder.image.setTag(ColorUtils.colorsArray[cowViewHolder.getAdapterPosition()]);
         // final int[] array = (int[]) cowViewHolder.image.getTag();
         final ImageView exclamation = cowViewHolder.exclamation;
@@ -44,30 +50,36 @@ public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowV
         cowViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //countOfClicks++;
-                HashMap<Integer, Integer> maps = colorUtils.thisWasClicked(cowViewHolder);
-                int clicks = colorUtils.incrementNumberOfClicks(maps, cowViewHolder);
-                notifyDataSetChanged();
-                switch (clicks) {
+                countOfClicks++;
+                CowViewHolder holder = maps.get(i);
+
+
+                // int clicks=colorUtils.incrementNumberOfClicks(maps, cowViewHolder);
+                // Log.e("clicks", String.valueOf(clicks));
+                // notifyDataSetChanged();
+                switch (countOfClicks) {
                     case 1:
 
-                        gd.setColor(colorUtils.setColorToDrawable(i, clicks));
+                        gd.setColor(holder.setColorToDrawable(i, countOfClicks));
+                        Log.e("color1", String.valueOf(holder.setColorToDrawable(i, countOfClicks)));
 
                         break;
                     case 2:
 
-                        gd.setColor(colorUtils.setColorToDrawable(i, clicks));
+                        gd.setColor(holder.setColorToDrawable(i, countOfClicks));
+                        Log.e("color2", String.valueOf(holder.setColorToDrawable(i, countOfClicks)));
 
                         break;
                     case 3:
-                        gd.setColor(colorUtils.setColorToDrawable(i, clicks));
+                        gd.setColor(holder.setColorToDrawable(i, countOfClicks));
+                        Log.e("color3", String.valueOf(holder.setColorToDrawable(i, countOfClicks)));
 
 
                         break;
 
                     default:
 
-                        gd.setColor(colorUtils.setColorToDrawable(i, clicks));
+                        gd.setColor(holder.setColorToDrawable(i, countOfClicks));
                         exclamation.setVisibility(View.GONE);
                         smily.setVisibility(View.VISIBLE);
 
@@ -97,6 +109,10 @@ public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowV
             this.exclamation = itemView.findViewById(R.id.exclamation);
             this.smily = itemView.findViewById(R.id.smily);
 
+        }
+
+        public int setColorToDrawable(int i, int clicks) {
+            return colorsArray[i][clicks];
         }
     }
 
