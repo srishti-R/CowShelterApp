@@ -9,10 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import java.util.HashMap;
-
-import static com.android.example.cowshelterapp.ColorUtils.colorsArray;
-
 public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowViewHolder> {
     ColorUtils colorUtils = new ColorUtils();
     int countOfClicks = 0;
@@ -37,10 +33,10 @@ public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowV
 
 
         final GradientDrawable gd = (GradientDrawable) cowViewHolder.image.getDrawable().getCurrent();
-        final HashMap<Integer, CowViewHolder> maps = new HashMap<>();
+       /* final HashMap<Integer, CowViewHolder> maps = new HashMap<>();
         synchronized (maps) {
             maps.put(i, cowViewHolder);
-        }
+        }*/
         //cowViewHolder.image.setTag(ColorUtils.colorsArray[cowViewHolder.getAdapterPosition()]);
         // final int[] array = (int[]) cowViewHolder.image.getTag();
         final ImageView exclamation = cowViewHolder.exclamation;
@@ -50,41 +46,45 @@ public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowV
         cowViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                countOfClicks++;
-                CowViewHolder holder = maps.get(i);
+                int color = colorUtils.thisWasClicked(cowViewHolder);
+                gd.setColor(color);
+                //int clicks=maps.get(cowViewHolder);
+
+                //countOfClicks++;
+                // CowViewHolder holder = maps.get(i);
 
 
                 // int clicks=colorUtils.incrementNumberOfClicks(maps, cowViewHolder);
-                // Log.e("clicks", String.valueOf(clicks));
+                Log.e("color", String.valueOf(color));
                 // notifyDataSetChanged();
-                switch (countOfClicks) {
+               /* switch (cl) {
                     case 1:
 
-                        gd.setColor(holder.setColorToDrawable(i, countOfClicks));
-                        Log.e("color1", String.valueOf(holder.setColorToDrawable(i, countOfClicks)));
+                        gd.setColor();
+                        //Log.e("clicks count1", String.valueOf(holder.setColorToDrawable(i, countOfClicks)));
 
                         break;
                     case 2:
 
-                        gd.setColor(holder.setColorToDrawable(i, countOfClicks));
-                        Log.e("color2", String.valueOf(holder.setColorToDrawable(i, countOfClicks)));
+                        gd.setColor(cowViewHolder.setColorToDrawable(cowViewHolder.getAdapterPosition(), clicks));
+                        //Log.e("color2", String.valueOf(holder.setColorToDrawable(i, countOfClicks)));
 
                         break;
                     case 3:
-                        gd.setColor(holder.setColorToDrawable(i, countOfClicks));
-                        Log.e("color3", String.valueOf(holder.setColorToDrawable(i, countOfClicks)));
+                        gd.setColor(cowViewHolder.setColorToDrawable(cowViewHolder.getAdapterPosition(), clicks));
+                        //Log.e("color3", String.valueOf(holder.setColorToDrawable(i, countOfClicks)));
 
 
                         break;
 
                     default:
 
-                        gd.setColor(holder.setColorToDrawable(i, countOfClicks));
+                        gd.setColor(cowViewHolder.setColorToDrawable(cowViewHolder.getAdapterPosition(), clicks));
                         exclamation.setVisibility(View.GONE);
                         smily.setVisibility(View.VISIBLE);
 
 
-                }
+                }*/
             }
         });
 
@@ -111,9 +111,7 @@ public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowV
 
         }
 
-        public int setColorToDrawable(int i, int clicks) {
-            return colorsArray[i][clicks];
-        }
+
     }
 
 

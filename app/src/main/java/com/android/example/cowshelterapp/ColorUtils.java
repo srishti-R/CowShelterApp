@@ -1,8 +1,13 @@
 package com.android.example.cowshelterapp;
 
-import java.util.HashMap;
-
 public class ColorUtils {
+    int clicks1 = 0;
+    int clicks2 = 0;
+    int clicks3 = 0;
+    int clicks4 = 0;
+    int clicks5 = 0;
+    int clicks6 = 0;
+    int clicks7 = 0;
 
 
     static int[][] colorsArray = new int[][]{
