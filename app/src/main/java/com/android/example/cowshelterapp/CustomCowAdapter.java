@@ -1,8 +1,10 @@
 package com.android.example.cowshelterapp;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -13,7 +15,7 @@ import android.widget.ImageView;
 
 public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowViewHolder> {
     ColorUtils colorUtils = new ColorUtils();
-    int countOfClicks = 0;
+
     Context context;
 
 
@@ -58,6 +60,7 @@ public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowV
 
                 }
 
+                writeToSharedPref(color);
 
             }
         });
@@ -85,6 +88,21 @@ public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowV
 
         }
 
+
+    }
+
+    public void writeToSharedPref(int color) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt("color", color);
+        editor.apply();
+
+    }
+
+    public void readFromSharedPref(GradientDrawable drawable) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        int color = preferences.getInt("color", Color.WHITE);
+        drawable.setColor(color);
 
     }
 
