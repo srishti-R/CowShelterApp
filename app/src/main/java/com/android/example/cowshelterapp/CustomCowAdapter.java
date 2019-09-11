@@ -1,10 +1,8 @@
 package com.android.example.cowshelterapp;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -13,11 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import java.util.HashMap;
+
 public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowViewHolder> {
-    ColorUtils colorUtils = new ColorUtils();
 
+    HashMap<Integer, Integer> maps;
     Context context;
-
+    ColorUtils colorUtils = new ColorUtils(context);
 
     public CustomCowAdapter(Context myContext) {
         super();
@@ -59,8 +59,12 @@ public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowV
                     smily.setVisibility(View.VISIBLE);
 
                 }
+               /*  maps=new HashMap<>();
+                Integer position=cowViewHolder.getAdapterPosition();
+                maps.put(position, color);
+                readFromMap(maps, cowViewHolder);
 
-                writeToSharedPref(color);
+                //writeToSharedPref(color);*/
 
             }
         });
@@ -74,9 +78,9 @@ public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowV
     }
 
     public class CowViewHolder extends RecyclerView.ViewHolder {
-        public ImageView image;
-        public ImageView exclamation;
-        public ImageView smily;
+        private ImageView image;
+        private ImageView exclamation;
+        private ImageView smily;
 
         public CowViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -91,7 +95,7 @@ public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowV
 
     }
 
-    public void writeToSharedPref(int color) {
+   /* public void writeToSharedPref(int color) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putInt("color", color);
@@ -105,7 +109,11 @@ public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowV
         drawable.setColor(color);
 
     }
+    public void readFromMap(HashMap<Integer, Integer> hashMap, int position ){
 
+        int color= hashMap.get(position);
+    }
+*/
 
 }
 
