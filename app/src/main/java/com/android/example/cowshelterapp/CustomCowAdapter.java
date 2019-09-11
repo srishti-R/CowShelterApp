@@ -1,8 +1,10 @@
 package com.android.example.cowshelterapp;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -17,7 +19,7 @@ public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowV
 
     HashMap<Integer, Integer> maps;
     Context context;
-    ColorUtils colorUtils = new ColorUtils(context);
+    ColorUtils colorUtils = new ColorUtils();
 
     public CustomCowAdapter(Context myContext) {
         super();
@@ -49,7 +51,18 @@ public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowV
         cowViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int color = colorUtils.thisWasClicked(cowViewHolder);
+                int color;
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+                if (preferences.contains(String.valueOf(cowViewHolder.getAdapterPosition()))) {
+                    color = preferences.getInt(String.valueOf(cowViewHolder.getAdapterPosition()), Color.WHITE);
+                    preferences.edit().clear().apply();
+                } else {
+
+                    color = colorUtils.thisWasClicked(cowViewHolder);
+                }
+
+                writeToSharedPref(color, cowViewHolder);
+
                 if (color > 0) {
                     gd.setColor(ContextCompat.getColor(context, color));
                 }
@@ -62,9 +75,9 @@ public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowV
                /*  maps=new HashMap<>();
                 Integer position=cowViewHolder.getAdapterPosition();
                 maps.put(position, color);
-                readFromMap(maps, cowViewHolder);
+                readFromMap(maps, cowViewHolder);*/
 
-                //writeToSharedPref(color);*/
+
 
             }
         });
@@ -95,21 +108,22 @@ public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowV
 
     }
 
-   /* public void writeToSharedPref(int color) {
+    public void writeToSharedPref(int color, CowViewHolder holder) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putInt("color", color);
+        int position = holder.getAdapterPosition();
+        editor.putInt(String.valueOf(position), color);
         editor.apply();
 
     }
 
-    public void readFromSharedPref(GradientDrawable drawable) {
+  /* public int readFromSharedPref(CowViewHolder holder) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        int color = preferences.getInt("color", Color.WHITE);
-        drawable.setColor(color);
+         int color = preferences.getInt(String.valueOf(holder.getAdapterPosition()), Color.WHITE);
+       return color;
 
-    }
-    public void readFromMap(HashMap<Integer, Integer> hashMap, int position ){
+    }*/
+  /*  public void readFromMap(HashMap<Integer, Integer> hashMap, int position ){
 
         int color= hashMap.get(position);
     }

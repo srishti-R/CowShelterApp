@@ -1,15 +1,9 @@
 package com.android.example.cowshelterapp;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.preference.PreferenceManager;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class ColorUtils {
-    Context context;
+    // Context context;
     int clicks1 = 0;
     int clicks2 = 0;
     int clicks3 = 0;
@@ -17,17 +11,18 @@ public class ColorUtils {
     int clicks5 = 0;
     int clicks6 = 0;
     int clicks7 = 0;
-    int[] clicksCount = new int[]{
+   /* int[] clicksCount = new int[]{
             clicks1, clicks2, clicks3, clicks4, clicks5, clicks6, clicks7
 
-    };
-    ArrayList<Integer> clicksCount1 = new ArrayList() {{
+    };*/
+   /* ArrayList<Integer> clicksCount1 = new ArrayList() {{
         addAll(Arrays.asList(clicksCount));
-    }};
+    }};*/
 
-    public ColorUtils(Context context) {
+  /*  public ColorUtils(Context context) {
+        super();
         this.context = context;
-    }
+    }*/
 
 
     static int[][] colorsArray = {

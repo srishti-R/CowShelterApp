@@ -2,7 +2,6 @@ package com.android.example.cowshelterapp;
 
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -10,12 +9,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 public class RowOne extends AppCompatActivity {
-    ColorUtils colorUtils = new ColorUtils(this);
+    ColorUtils colorUtils = new ColorUtils();
     GradientDrawable gd;
     CustomCowAdapter adapter;
-    private final String KEY_RECYCLER_STATE = "recycler_state";
+    // private final String KEY_RECYCLER_STATE = "recycler_state";
     private RecyclerView recyclerView;
-    private static Bundle mBundleRecyclerViewState;
+    //private static Bundle mBundleRecyclerViewState;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,7 +40,7 @@ public class RowOne extends AppCompatActivity {
 
     }
 
-    @Override
+    /*@Override
     protected void onResume() {
         super.onResume();
         // adapter.readFromSharedPref(gd);
@@ -80,7 +79,7 @@ public class RowOne extends AppCompatActivity {
 
     }
 
-   /* public void readFromSharedPref(GradientDrawable drawable) {
+   *//* public void readFromSharedPref(GradientDrawable drawable) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         int click1 = preferences.getInt("1", 0);
         colorUtils.setColorToDrawable()
