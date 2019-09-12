@@ -52,32 +52,58 @@ public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowV
         cowViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int clicks = 0;
                 int color;
-                //Toast.makeText(context, cowViewHolder.getAdapterPosition(), Toast.LENGTH_SHORT).show();
+                switch (cowViewHolder.getAdapterPosition()) {
+                    case 0:
+                        clicks = colorUtils.clicks1++;
+                        break;
+                    case 1:
+                        clicks = colorUtils.clicks2++;
+                        break;
+                    case 2:
+                        clicks = colorUtils.clicks3++;
+                        break;
+                    case 3:
+                        clicks = colorUtils.clicks4++;
+                        break;
+                    case 4:
+                        clicks = colorUtils.clicks5++;
+                        break;
+                    case 5:
+                        clicks = colorUtils.clicks6++;
+                        break;
+                    default:
+                        clicks = colorUtils.clicks7++;
+                }
                 Log.e("position", String.valueOf(cowViewHolder.getAdapterPosition()));
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(v.getContext());
                 if (preferences.contains(String.valueOf(cowViewHolder.getAdapterPosition()))) {
 
-                    color = preferences.getInt(String.valueOf(cowViewHolder.getAdapterPosition()), Color.WHITE);
-                    gd.setColor(ContextCompat.getColor(v.getContext(), color));
-                    preferences.edit().clear().apply();
+                    clicks = preferences.getInt(String.valueOf(cowViewHolder.getAdapterPosition()), 0);
+                    color = colorUtils.setColorToDrawable(cowViewHolder.getAdapterPosition(), clicks);
+
                     Log.e("reached if", "clearing shared prefs now");
                 } else {
 
                     color = colorUtils.thisWasClicked(cowViewHolder);
-                    if (color > 0) {
-                        gd.setColor(ContextCompat.getColor(v.getContext(), color));
-                    }
-                    if (color < 0) {
-                        gd.setColor(Color.WHITE);
-                        exclamation.setVisibility(View.GONE);
-                        smily.setVisibility(View.VISIBLE);
-                        Log.e("color<0", "end of click cycle");
-                    }
+                    Log.e("else", "this was clicked");
 
                 }
+
+                if (color > 0) {
+                    gd.setColor(ContextCompat.getColor(v.getContext(), color));
+                    Log.e("coloe>0", "reached");
+                }
+                if (color < 0) {
+                    gd.setColor(Color.WHITE);
+                    exclamation.setVisibility(View.GONE);
+                    smily.setVisibility(View.VISIBLE);
+                    preferences.edit().clear().apply();
+                    Log.e("color<0", "end of click cycle");
+                }
                 Log.e("write to shared pref", "reached");
-                writeToSharedPref(color, cowViewHolder.getAdapterPosition(), v);
+                writeToSharedPref(clicks, cowViewHolder.getAdapterPosition(), v);
                 Log.e("end of write to sp", "saving prefs");
                 // color = colorUtils.thisWasClicked(cowViewHolder);
 
@@ -118,11 +144,11 @@ public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowV
 
     }
 
-    public void writeToSharedPref(int color, int position, View v) {
+    public void writeToSharedPref(int clicks, int position, View v) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(v.getContext());
         SharedPreferences.Editor editor = preferences.edit();
         //int position = holder.getAdapterPosition();
-        editor.putInt(String.valueOf(position), color);
+        editor.putInt(String.valueOf(position), clicks);
         editor.apply();
 
     }
