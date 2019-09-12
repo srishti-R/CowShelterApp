@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,26 +53,35 @@ public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowV
             @Override
             public void onClick(View v) {
                 int color;
-                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+                //Toast.makeText(context, cowViewHolder.getAdapterPosition(), Toast.LENGTH_SHORT).show();
+                Log.e("position", String.valueOf(cowViewHolder.getAdapterPosition()));
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(v.getContext());
                 if (preferences.contains(String.valueOf(cowViewHolder.getAdapterPosition()))) {
+
                     color = preferences.getInt(String.valueOf(cowViewHolder.getAdapterPosition()), Color.WHITE);
+                    gd.setColor(ContextCompat.getColor(v.getContext(), color));
                     preferences.edit().clear().apply();
+                    Log.e("reached if", "clearing shared prefs now");
                 } else {
 
                     color = colorUtils.thisWasClicked(cowViewHolder);
-                }
-
-                writeToSharedPref(color, cowViewHolder);
-
-                if (color > 0) {
-                    gd.setColor(ContextCompat.getColor(context, color));
-                }
-                if (color < 0) {
-                    gd.setColor(Color.WHITE);
-                    exclamation.setVisibility(View.GONE);
-                    smily.setVisibility(View.VISIBLE);
+                    if (color > 0) {
+                        gd.setColor(ContextCompat.getColor(v.getContext(), color));
+                    }
+                    if (color < 0) {
+                        gd.setColor(Color.WHITE);
+                        exclamation.setVisibility(View.GONE);
+                        smily.setVisibility(View.VISIBLE);
+                        Log.e("color<0", "end of click cycle");
+                    }
 
                 }
+                Log.e("write to shared pref", "reached");
+                writeToSharedPref(color, cowViewHolder.getAdapterPosition(), v);
+                Log.e("end of write to sp", "saving prefs");
+                // color = colorUtils.thisWasClicked(cowViewHolder);
+
+
                /*  maps=new HashMap<>();
                 Integer position=cowViewHolder.getAdapterPosition();
                 maps.put(position, color);
@@ -108,10 +118,10 @@ public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowV
 
     }
 
-    public void writeToSharedPref(int color, CowViewHolder holder) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+    public void writeToSharedPref(int color, int position, View v) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(v.getContext());
         SharedPreferences.Editor editor = preferences.edit();
-        int position = holder.getAdapterPosition();
+        //int position = holder.getAdapterPosition();
         editor.putInt(String.valueOf(position), color);
         editor.apply();
 
