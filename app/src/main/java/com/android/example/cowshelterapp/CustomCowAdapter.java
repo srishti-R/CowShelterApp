@@ -1,8 +1,10 @@
 package com.android.example.cowshelterapp;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -48,6 +50,30 @@ public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowV
         cowViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int clicks;
+
+                switch (cowViewHolder.getAdapterPosition()) {
+                    case 0:
+                        clicks = colorUtils.clicks1++;
+                        break;
+                    case 1:
+                        clicks = colorUtils.clicks2++;
+                        break;
+                    case 2:
+                        clicks = colorUtils.clicks3++;
+                        break;
+                    case 3:
+                        clicks = colorUtils.clicks4++;
+                        break;
+                    case 4:
+                        clicks = colorUtils.clicks5++;
+                        break;
+                    case 5:
+                        clicks = colorUtils.clicks6++;
+                        break;
+                    default:
+                        clicks = colorUtils.clicks7++;
+                }
                 /*int clicks = 0;
                 int color;
                 switch (cowViewHolder.getAdapterPosition()) {
@@ -88,7 +114,14 @@ public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowV
                 }
 
 */
-                int color = colorUtils.thisWasClicked(cowViewHolder);
+                int color = colorUtils.setColorToDrawable(cowViewHolder.getAdapterPosition(), clicks);
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(v.getContext());
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                editor.putInt(String.valueOf(cowViewHolder.getAdapterPosition()), clicks);
+                Log.e("key", String.valueOf(cowViewHolder.getAdapterPosition()));
+                Log.e("value", String.valueOf(clicks));
+                // int color = colorUtils.thisWasClicked(cowViewHolder);
                 if (color > 0) {
                     gd.setColor(ContextCompat.getColor(v.getContext(), color));
                     Log.e("coloe>0", "reached");

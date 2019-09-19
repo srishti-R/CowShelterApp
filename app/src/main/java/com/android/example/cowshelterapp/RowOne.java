@@ -42,7 +42,7 @@ public class RowOne extends AppCompatActivity implements SharedPreferences.OnSha
         recyclerView.setLayoutManager(gridLayoutManager);
 
         // gd = (GradientDrawable) getResources().getDrawable(R.drawable.icon_bg);
-        PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(this);
+        // PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(this);
 
         //adapter.readFromSharedPref(gd);
         // adapter.readFromMap(adapter.maps, );
@@ -59,7 +59,7 @@ public class RowOne extends AppCompatActivity implements SharedPreferences.OnSha
     public void readFromSpAndUpdateBundle() {
         Log.e("readsp", "reading sp");
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        colorUtils.clicks1 = preferences.getInt("1", 0);
+        colorUtils.clicks1 = preferences.getInt("0", 0);
         bundle = new Bundle();
         bundle.putInt("clicks1", colorUtils.clicks1);
 
@@ -69,22 +69,19 @@ public class RowOne extends AppCompatActivity implements SharedPreferences.OnSha
     @Override
     protected void onResume() {
         super.onResume();
-
-        if (bundle != null) {
-            colorUtils.clicks1 = bundle.getInt("clicks1");
-            Log.e("onResume", "getting bundle");
-
-        }
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        colorUtils.clicks1 = preferences.getInt("0", 0);
+        Log.e("onResume", String.valueOf(colorUtils.clicks1));
     }
 
 
     @Override
     protected void onPause() {
         super.onPause();
-        writeToSharedPref(colorUtils.clicks1, 0, 0, 0, 0, 0, 0);
+        //writeToSharedPref(colorUtils.clicks1, 0, 0, 0, 0, 0, 0);
         readFromSpAndUpdateBundle();
 
-        Log.e("onPause", "saving pref");
+        Log.e("onPause", String.valueOf(colorUtils.clicks1));
     }
 
     @Override
