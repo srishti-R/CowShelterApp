@@ -1,16 +1,16 @@
 package com.android.example.cowshelterapp;
 
-import android.graphics.Color;
+import android.view.View;
 
 public class ColorUtils {
     // Context context;
-    int clicks1 = 0;
-    int clicks2 = 0;
-    int clicks3 = 0;
-    int clicks4 = 0;
-    int clicks5 = 0;
-    int clicks6 = 0;
-    int clicks7 = 0;
+    int clicks1;
+    int clicks2;
+    int clicks3;
+    int clicks4;
+    int clicks5;
+    int clicks6;
+    int clicks7;
    /* int[] clicksCount = new int[]{
             clicks1, clicks2, clicks3, clicks4, clicks5, clicks6, clicks7
 

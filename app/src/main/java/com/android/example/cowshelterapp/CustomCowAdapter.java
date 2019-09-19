@@ -1,10 +1,8 @@
 package com.android.example.cowshelterapp;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -14,11 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import java.util.HashMap;
-
 public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowViewHolder> {
 
-    HashMap<Integer, Integer> maps;
+
     Context context;
     ColorUtils colorUtils = new ColorUtils();
 
@@ -52,7 +48,7 @@ public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowV
         cowViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int clicks = 0;
+                /*int clicks = 0;
                 int color;
                 switch (cowViewHolder.getAdapterPosition()) {
                     case 0:
@@ -91,6 +87,8 @@ public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowV
 
                 }
 
+*/
+                int color = colorUtils.thisWasClicked(cowViewHolder);
                 if (color > 0) {
                     gd.setColor(ContextCompat.getColor(v.getContext(), color));
                     Log.e("coloe>0", "reached");
@@ -99,12 +97,12 @@ public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowV
                     gd.setColor(Color.WHITE);
                     exclamation.setVisibility(View.GONE);
                     smily.setVisibility(View.VISIBLE);
-                    preferences.edit().clear().apply();
+                    //preferences.edit().clear().apply();
                     Log.e("color<0", "end of click cycle");
                 }
-                Log.e("write to shared pref", "reached");
+              /*  Log.e("write to shared pref", "reached");
                 writeToSharedPref(clicks, cowViewHolder.getAdapterPosition(), v);
-                Log.e("end of write to sp", "saving prefs");
+                Log.e("end of write to sp", "saving prefs");*/
                 // color = colorUtils.thisWasClicked(cowViewHolder);
 
 
@@ -144,14 +142,14 @@ public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowV
 
     }
 
-    public void writeToSharedPref(int clicks, int position, View v) {
+   /* public void writeToSharedPref(int clicks, int position, View v) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(v.getContext());
         SharedPreferences.Editor editor = preferences.edit();
         //int position = holder.getAdapterPosition();
         editor.putInt(String.valueOf(position), clicks);
         editor.apply();
 
-    }
+    }*/
 
   /* public int readFromSharedPref(CowViewHolder holder) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
