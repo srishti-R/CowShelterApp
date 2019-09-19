@@ -52,28 +52,17 @@ public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowV
             public void onClick(View v) {
                 int clicks;
 
-                switch (cowViewHolder.getAdapterPosition()) {
-                    case 0:
-                        clicks = colorUtils.clicks1++;
-                        break;
-                    case 1:
-                        clicks = colorUtils.clicks2++;
-                        break;
-                    case 2:
-                        clicks = colorUtils.clicks3++;
-                        break;
-                    case 3:
-                        clicks = colorUtils.clicks4++;
-                        break;
-                    case 4:
-                        clicks = colorUtils.clicks5++;
-                        break;
-                    case 5:
-                        clicks = colorUtils.clicks6++;
-                        break;
-                    default:
-                        clicks = colorUtils.clicks7++;
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(v.getContext());
+
+                while (preferences.contains(String.valueOf(cowViewHolder.getAdapterPosition()))) {
+                    clicks = preferences.getInt(String.valueOf(cowViewHolder.getAdapterPosition()), numberOfClicks(cowViewHolder));
                 }
+
+                clicks = numberOfClicks(cowViewHolder);
+                Log.e("numberClicks", String.valueOf(numberOfClicks(cowViewHolder)));
+
+
+
                 /*int clicks = 0;
                 int color;
                 switch (cowViewHolder.getAdapterPosition()) {
@@ -119,6 +108,7 @@ public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowV
                 SharedPreferences.Editor editor = sharedPreferences.edit();
 
                 editor.putInt(String.valueOf(cowViewHolder.getAdapterPosition()), clicks);
+                editor.apply();
                 Log.e("key", String.valueOf(cowViewHolder.getAdapterPosition()));
                 Log.e("value", String.valueOf(clicks));
                 // int color = colorUtils.thisWasClicked(cowViewHolder);
@@ -195,6 +185,32 @@ public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowV
         int color= hashMap.get(position);
     }
 */
+  public int numberOfClicks(CowViewHolder cowViewHolder) {
+      int clicks;
+      switch (cowViewHolder.getAdapterPosition()) {
+          case 0:
+              clicks = colorUtils.clicks1++;
+              break;
+          case 1:
+              clicks = colorUtils.clicks2++;
+              break;
+          case 2:
+              clicks = colorUtils.clicks3++;
+              break;
+          case 3:
+              clicks = colorUtils.clicks4++;
+              break;
+          case 4:
+              clicks = colorUtils.clicks5++;
+              break;
+          case 5:
+              clicks = colorUtils.clicks6++;
+              break;
+          default:
+              clicks = colorUtils.clicks7++;
+      }
+      return clicks;
+  }
 
 }
 
