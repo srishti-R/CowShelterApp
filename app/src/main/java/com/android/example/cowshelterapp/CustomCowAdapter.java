@@ -50,16 +50,9 @@ public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowV
         cowViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int clicks;
+                int clicks = checkSpForClicks(v, cowViewHolder);
 
-                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(v.getContext());
 
-                while (preferences.contains(String.valueOf(cowViewHolder.getAdapterPosition()))) {
-                    clicks = preferences.getInt(String.valueOf(cowViewHolder.getAdapterPosition()), numberOfClicks(cowViewHolder));
-                }
-
-                clicks = numberOfClicks(cowViewHolder);
-                Log.e("numberClicks", String.valueOf(numberOfClicks(cowViewHolder)));
 
 
 
@@ -103,12 +96,9 @@ public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowV
                 }
 
 */
-                int color = colorUtils.setColorToDrawable(cowViewHolder.getAdapterPosition(), clicks);
-                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(v.getContext());
-                SharedPreferences.Editor editor = sharedPreferences.edit();
 
-                editor.putInt(String.valueOf(cowViewHolder.getAdapterPosition()), clicks);
-                editor.apply();
+                int color = colorUtils.setColorToDrawable(cowViewHolder.getAdapterPosition(), clicks);
+
                 Log.e("key", String.valueOf(cowViewHolder.getAdapterPosition()));
                 Log.e("value", String.valueOf(clicks));
                 // int color = colorUtils.thisWasClicked(cowViewHolder);
@@ -211,6 +201,33 @@ public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowV
       }
       return clicks;
   }
+
+    public int checkSpForClicks(View v, CowViewHolder cowViewHolder) {
+        int clicks;
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(v.getContext());
+
+        if (preferences.contains(String.valueOf(cowViewHolder.getAdapterPosition()))) {
+            clicks = preferences.getInt(String.valueOf(cowViewHolder.getAdapterPosition()), numberOfClicks(cowViewHolder));
+            preferences.edit().clear().commit();
+
+
+        } else {
+
+            clicks = numberOfClicks(cowViewHolder);
+        }
+        return clicks;
+    }
+
+    public void saveToSP(View v, int clicks, CowViewHolder holder) {
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(v.getContext());
+        sharedPreferences.edit().putInt(String.valueOf(holder.getAdapterPosition()), clicks).commit();
+
+
+        Log.e("savetosp", "here");
+
+
+    }
 
 }
 

@@ -69,6 +69,7 @@ public class RowOne extends AppCompatActivity implements SharedPreferences.OnSha
     @Override
     protected void onResume() {
         super.onResume();
+
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         colorUtils.clicks1 = preferences.getInt("0", 0);
         Log.e("onResume", String.valueOf(colorUtils.clicks1));
@@ -86,11 +87,12 @@ public class RowOne extends AppCompatActivity implements SharedPreferences.OnSha
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (key.equals("1")) {
+        if (key.equals("0")) {
+            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
             Log.e("sharechange listener2", "saving clicks");
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putInt("1", colorUtils.clicks1);
-            editor.apply();
+            editor.putInt("0", colorUtils.clicks1);
+            editor.commit();
         }
     }
 
