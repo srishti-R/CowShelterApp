@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -50,7 +49,7 @@ public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowV
         cowViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int clicks = checkSpForClicks(v, cowViewHolder);
+                int clicks = numberOfClicks(cowViewHolder);
 
 
 
@@ -96,7 +95,7 @@ public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowV
                 }
 
 */
-
+                saveToSP(v, clicks, cowViewHolder);
                 int color = colorUtils.setColorToDrawable(cowViewHolder.getAdapterPosition(), clicks);
 
                 Log.e("key", String.valueOf(cowViewHolder.getAdapterPosition()));
@@ -204,11 +203,11 @@ public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowV
 
     public int checkSpForClicks(View v, CowViewHolder cowViewHolder) {
         int clicks;
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(v.getContext());
+        SharedPreferences preferences = v.getContext().getSharedPreferences("Clicks", Context.MODE_PRIVATE);
 
         if (preferences.contains(String.valueOf(cowViewHolder.getAdapterPosition()))) {
-            clicks = preferences.getInt(String.valueOf(cowViewHolder.getAdapterPosition()), numberOfClicks(cowViewHolder));
-            preferences.edit().clear().commit();
+            clicks = preferences.getInt(String.valueOf(cowViewHolder.getAdapterPosition()), 0);
+
 
 
         } else {
@@ -220,7 +219,7 @@ public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowV
 
     public void saveToSP(View v, int clicks, CowViewHolder holder) {
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(v.getContext());
+        SharedPreferences sharedPreferences = v.getContext().getSharedPreferences("Clicks", Context.MODE_PRIVATE);
         sharedPreferences.edit().putInt(String.valueOf(holder.getAdapterPosition()), clicks).commit();
 
 

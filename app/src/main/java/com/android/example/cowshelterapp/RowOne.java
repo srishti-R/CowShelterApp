@@ -27,7 +27,7 @@ public class RowOne extends AppCompatActivity implements SharedPreferences.OnSha
 
         if (savedInstanceState != null) {
 
-            colorUtils.clicks1 = savedInstanceState.getInt("clicks1");
+            colorUtils.clicks1 = savedInstanceState.getInt("Clicks1");
             Log.e("savedinstancestate", "getting bundle");
 
         }
@@ -58,10 +58,10 @@ public class RowOne extends AppCompatActivity implements SharedPreferences.OnSha
 
     public void readFromSpAndUpdateBundle() {
         Log.e("readsp", "reading sp");
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences preferences = this.getSharedPreferences("Clicks", MODE_PRIVATE);
         colorUtils.clicks1 = preferences.getInt("0", 0);
         bundle = new Bundle();
-        bundle.putInt("clicks1", colorUtils.clicks1);
+        bundle.putInt("Clicks1", colorUtils.clicks1);
 
 
     }
@@ -70,7 +70,7 @@ public class RowOne extends AppCompatActivity implements SharedPreferences.OnSha
     protected void onResume() {
         super.onResume();
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences preferences = this.getSharedPreferences("Clicks", MODE_PRIVATE);
         colorUtils.clicks1 = preferences.getInt("0", 0);
         Log.e("onResume", String.valueOf(colorUtils.clicks1));
     }
@@ -88,7 +88,7 @@ public class RowOne extends AppCompatActivity implements SharedPreferences.OnSha
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (key.equals("0")) {
-            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+            sharedPreferences = this.getSharedPreferences("Clicks", MODE_PRIVATE);
             Log.e("sharechange listener2", "saving clicks");
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putInt("0", colorUtils.clicks1);
