@@ -49,8 +49,9 @@ public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowV
         cowViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int clicks = numberOfClicks(cowViewHolder);
-
+                int clicks = checkSpForClicks(v, cowViewHolder);
+                clicks = numberOfClicks(cowViewHolder, clicks);
+                Log.e("clicks1", String.valueOf(clicks));
 
 
 
@@ -174,8 +175,8 @@ public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowV
         int color= hashMap.get(position);
     }
 */
-  public int numberOfClicks(CowViewHolder cowViewHolder) {
-      int clicks;
+  public int numberOfClicks(CowViewHolder cowViewHolder, int clicks) {
+
       switch (cowViewHolder.getAdapterPosition()) {
           case 0:
               clicks = colorUtils.clicks1++;
@@ -202,19 +203,16 @@ public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowV
   }
 
     public int checkSpForClicks(View v, CowViewHolder cowViewHolder) {
-        int clicks;
+        int clicks = 0;
         SharedPreferences preferences = v.getContext().getSharedPreferences("Clicks", Context.MODE_PRIVATE);
 
         if (preferences.contains(String.valueOf(cowViewHolder.getAdapterPosition()))) {
             clicks = preferences.getInt(String.valueOf(cowViewHolder.getAdapterPosition()), 0);
 
 
-
-        } else {
-
-            clicks = numberOfClicks(cowViewHolder);
         }
         return clicks;
+
     }
 
     public void saveToSP(View v, int clicks, CowViewHolder holder) {
