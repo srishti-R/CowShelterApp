@@ -49,6 +49,7 @@ public class CustomCowAdapter extends RecyclerView.Adapter<CustomCowAdapter.CowV
         cowViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 int clicks = checkSpForClicks(v, cowViewHolder);
                 clicks = numberOfClicks(cowViewHolder, clicks);
                 Log.e("clicks1", String.valueOf(clicks));

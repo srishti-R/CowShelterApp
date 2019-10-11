@@ -72,6 +72,8 @@ public class RowOne extends AppCompatActivity implements SharedPreferences.OnSha
 
         SharedPreferences preferences = this.getSharedPreferences("Clicks", MODE_PRIVATE);
         colorUtils.clicks1 = preferences.getInt("0", 0);
+
+
         Log.e("onResume", String.valueOf(colorUtils.clicks1));
     }
 
@@ -81,6 +83,7 @@ public class RowOne extends AppCompatActivity implements SharedPreferences.OnSha
         super.onPause();
         //writeToSharedPref(colorUtils.clicks1, 0, 0, 0, 0, 0, 0);
         readFromSpAndUpdateBundle();
+        // adapter.notifyDataSetChanged();
 
         Log.e("onPause", String.valueOf(colorUtils.clicks1));
     }
